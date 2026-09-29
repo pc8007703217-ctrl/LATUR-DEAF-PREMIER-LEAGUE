@@ -1,0 +1,622 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { 
+  Activity, Calendar, Clock, Trophy, ChevronLeft, RefreshCcw, Swords, 
+  Radio, Zap, Globe2, Shield, Users, MessageSquare, BarChart3, Info
+} from 'lucide-react';
+
+const INITIAL_SERIES = [
+  { id: 's1', name: 'AUSA Supreme Cricket Championship 2026', status: 'Ongoing', matches: 12 },
+  { id: 's2', name: 'Indian Premier T20 League', status: 'Upcoming', matches: 74 },
+  { id: 's3', name: 'World Test Championship', status: 'Ongoing', matches: 3 },
+];
+
+const INITIAL_MOCK_DATA = [
+  {
+    id: 'm1',
+    type: 'live',
+    series: 'AUSA Supreme Cricket Championship 2026',
+    venue: 'Supreme Ground, City Center',
+    team1: { name: 'ASDC', fullName: 'Ausa Supreme Deaf Cricket', color: 'bg-emerald-500' },
+    team2: { name: 'AUSA', fullName: 'AUSA All-Star United Super Avengers', color: 'bg-indigo-500' },
+    battingTeam: 'team1',
+    status: 'ASDC elected to bat',
+    team1Stats: { score: 142, wickets: 3, overs: '15.4' },
+    team2Stats: { score: 0, wickets: 0, overs: '0.0' },
+    runRate: '9.06',
+    batsmen: [
+      { id: 'b1', name: 'A. Sharma', runs: 64, balls: 41, fours: 5, sixes: 3, strikeRate: '156.09', onStrike: true },
+      { id: 'b2', name: 'R. Kumar', runs: 28, balls: 18, fours: 3, sixes: 1, strikeRate: '155.55', onStrike: false }
+    ],
+    bowlers: [
+      { id: 'bw1', name: 'Tony S.', overs: '3.4', maidens: 0, runs: 32, wickets: 1, economy: '8.72' },
+      { id: 'bw2', name: 'Steve R.', overs: '4.0', maidens: 0, runs: 28, wickets: 2, economy: '7.00' }
+    ],
+    recentBalls: ['1', '4', '0', 'W', '6', '1'],
+    commentary: [
+      { id: 'c1', over: '15.4', event: '1', text: 'Tony S. to A. Sharma, 1 run, pushed down to long-on for a single. Good running.' },
+      { id: 'c2', over: '15.3', event: '6', text: 'Tony S. to A. Sharma, SIX! What a shot! Smashed over deep mid-wicket.' },
+      { id: 'c3', over: '15.2', event: 'W', text: 'Tony S. to V. Singh, OUT! Caught behind! The pressure gets to him.' },
+      { id: 'c4', over: '15.1', event: '0', text: 'Tony S. to V. Singh, no run, completely deceived by the slower one.' }
+    ],
+    squads: {
+      team1: ['A. Sharma (c)', 'R. Kumar', 'V. Singh (wk)', 'S. Patel', 'K. Ali', 'M. Das', 'J. Singh', 'T. Rao', 'P. Kumar', 'D. Joshi', 'H. Singh'],
+      team2: ['Steve R. (c)', 'Tony S.', 'Thor O.', 'Bruce B.', 'Natasha R.', 'Clint B.', 'Peter P.', 'Sam W.', 'Bucky B.', 'Scott L.', 'Stephen S.']
+    }
+  },
+  {
+    id: 'm2',
+    type: 'recent',
+    series: 'Indian Premier T20 League - Eliminator',
+    venue: 'M. Chinnaswamy Stadium, Bengaluru',
+    team1: { name: 'CSK', fullName: 'Chennai Super Kings', color: 'bg-yellow-500' },
+    team2: { name: 'RCB', fullName: 'Royal Challengers Bengaluru', color: 'bg-red-600' },
+    battingTeam: 'team2',
+    status: 'RCB won by 4 wickets',
+    team1Stats: { score: 188, wickets: 6, overs: '20.0' },
+    team2Stats: { score: 191, wickets: 6, overs: '19.4' },
+    runRate: '9.71',
+    result: 'RCB won by 4 wickets',
+    batsmen: [], bowlers: [], recentBalls: [], commentary: [], squads: null
+  },
+  {
+    id: 'm3',
+    type: 'upcoming',
+    series: 'Indian Premier T20 League - Qualifier 1',
+    venue: 'Wankhede Stadium, Mumbai',
+    team1: { name: 'MI', fullName: 'Mumbai Indians', color: 'bg-blue-600' },
+    team2: { name: 'DC', fullName: 'Delhi Capitals', color: 'bg-blue-400' },
+    status: 'Starts: Oct 02, 07:30 PM IST',
+    batsmen: [], bowlers: [], recentBalls: [], commentary: [], squads: null
+  }
+];
+
+// ============================================================================
+// 🔌 API X INTEGRATION POINT
+// 
+// Developer Instructions:
+// Replace the mock functions below with your actual API calls.
+// 
+// Example Hook Usage:
+// const { data: matches, isLoading } = useLiveMatches('YOUR_API_KEY');
+// ============================================================================
+
+const api_keys = "YOUR_API_X_KEY_HERE";
+const API_BASE_URL = "https://api.example-cricket-x.com/v1";
+
+// 1. Fetch Live Matches List
+export const fetchLiveMatches = async (category) => {
+  /*
+  const response = await fetch(`${API_BASE_URL}/matches?status=${category}`, {
+    headers: { 'Authorization': `Bearer ${api_keys}` }
+  });
+  const data = await response.json();
+  return mapApiToLocalModel(data);
+  */
+  return new Promise(resolve => setTimeout(() => resolve(INITIAL_MOCK_DATA.filter(m => m.type === category)), 500));
+};
+
+// 2. Fetch Detailed Scorecard
+export const fetchScorecard = async (matchId) => {
+  /*
+  const response = await fetch(`${API_BASE_URL}/matches/${matchId}/scorecard`, {
+    headers: { 'Authorization': `Bearer ${api_keys}` }
+  });
+  return response.json();
+  */
+};
+
+// 3. Fetch Ball-by-Ball Commentary
+export const fetchCommentary = async (matchId, lastEventId) => {
+  /*
+  const response = await fetch(`${API_BASE_URL}/matches/${matchId}/commentary?since=${lastEventId}`, {
+    headers: { 'Authorization': `Bearer ${api_keys}` }
+  });
+  return response.json();
+  */
+};
+
+// Helper to simulate real-time cricket action dynamically
+const simulateLiveAction = (match) => {
+  if (match.type !== 'live') return match;
+
+  const newMatch = JSON.parse(JSON.stringify(match)); 
+  const battingStats = newMatch[`${newMatch.battingTeam}Stats`];
+  
+  if (battingStats.wickets >= 10 || parseFloat(battingStats.overs) >= 20.0) {
+    return newMatch; 
+  }
+
+  let [o, b] = battingStats.overs.split('.').map(Number);
+  
+  // Weights for realistic simulation
+  const runOptions = [0, 0, 1, 1, 1, 2, 4, 6];
+  const runsScored = runOptions[Math.floor(Math.random() * runOptions.length)];
+  const isWicket = Math.random() < 0.08 && runsScored === 0;
+
+  b++;
+  if (b === 6) { o++; b = 0; }
+  battingStats.overs = `${o}.${b}`;
+  
+  let eventStr = isWicket ? 'W' : runsScored.toString();
+  let commText = '';
+
+  if (isWicket) {
+    battingStats.wickets++;
+    newMatch.recentBalls.push('W');
+    commText = `OUT! A massive breakthrough. The batsman has to walk back.`;
+  } else {
+    battingStats.score += runsScored;
+    newMatch.recentBalls.push(runsScored.toString());
+    
+    if(runsScored === 4) commText = `FOUR! Beautifully struck through the gaps.`;
+    else if(runsScored === 6) commText = `SIX! Out of the park! Magnificent hit.`;
+    else if(runsScored === 0) commText = `Dot ball. Bowler keeping things tight.`;
+    else commText = `${runsScored} run(s) taken down the ground.`;
+    
+    const striker = newMatch.batsmen.find(bat => bat.onStrike);
+    if (striker) {
+      striker.runs += runsScored;
+      striker.balls += 1;
+      if (runsScored === 4) striker.fours++;
+      if (runsScored === 6) striker.sixes++;
+      striker.strikeRate = ((striker.runs / striker.balls) * 100).toFixed(2);
+      
+      if (runsScored % 2 !== 0 || b === 0) {
+        newMatch.batsmen.forEach(bat => bat.onStrike = !bat.onStrike);
+      }
+    }
+  }
+
+  if (newMatch.recentBalls.length > 8) newMatch.recentBalls.shift();
+
+  // Add Commentary
+  newMatch.commentary.unshift({
+    id: `c_${Date.now()}`,
+    over: battingStats.overs,
+    event: eventStr,
+    text: commText
+  });
+  if(newMatch.commentary.length > 20) newMatch.commentary.pop();
+
+  const totalBalls = (o * 6) + b;
+  if (totalBalls > 0) {
+    newMatch.runRate = ((battingStats.score / totalBalls) * 6).toFixed(2);
+  }
+
+  return newMatch;
+};
+
+export default function CricketDashboard() {
+  const [activeMainTab, setActiveMainTab] = useState('live');
+  const [matches, setMatches] = useState(INITIAL_MOCK_DATA);
+  const [seriesList] = useState(INITIAL_SERIES);
+  const [selectedMatchId, setSelectedMatchId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Load Data Effect
+  useEffect(() => {
+    if (activeMainTab === 'series') return;
+    setIsLoading(true);
+    fetchLiveMatches(activeMainTab).then(data => {
+      // If we fetch API data, we'd merge it. For this mock, we rely on local state to persist live simulation.
+      // In production: setMatches(data);
+      setIsLoading(false);
+    });
+  }, [activeMainTab]);
+
+  // Live Auto-Update Interval
+  useEffect(() => {
+    if (activeMainTab !== 'live') return;
+
+    const intervalId = setInterval(() => {
+      // Production: fetchLiveMatches('live').then(newData => updateState(newData));
+      setMatches(prev => prev.map(m => simulateLiveAction(m)));
+    }, 4500); // Simulate ball every 4.5 seconds
+
+    return () => clearInterval(intervalId);
+  }, [activeMainTab]);
+
+  const displayedMatches = matches.filter(m => m.type === activeMainTab);
+  const selectedMatch = matches.find(m => m.id === selectedMatchId);
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans sm:pb-8">
+      
+      {/* Header */}
+      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-20 shadow-lg">
+        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-emerald-400">
+            <Globe2 className="w-6 h-6" />
+            <h1 className="text-xl font-black tracking-tight uppercase italic">
+              Live<span className="text-white">Cricket</span> API-X
+            </h1>
+          </div>
+          
+          {activeMainTab === 'live' && (
+            <div className="flex items-center text-[10px] font-bold px-2 py-1 rounded bg-red-500/10 text-red-500 border border-red-500/20 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 bg-red-500 rounded-full mr-1.5 animate-pulse"></span>
+              Live Updates
+            </div>
+          )}
+        </div>
+
+        {/* Main Navigation */}
+        {!selectedMatch && (
+          <div className="max-w-4xl mx-auto px-4 flex gap-6 overflow-x-auto no-scrollbar border-t border-slate-800/50">
+            {[
+              { id: 'live', label: 'Live Matches', icon: <Activity className="w-4 h-4" /> },
+              { id: 'recent', label: 'Completed', icon: <Clock className="w-4 h-4" /> },
+              { id: 'upcoming', label: 'Upcoming', icon: <Calendar className="w-4 h-4" /> },
+              { id: 'series', label: 'Series', icon: <Trophy className="w-4 h-4" /> },
+            ].map(tab => (
+               <button
+                key={tab.id}
+                onClick={() => setActiveMainTab(tab.id)}
+                className={`flex items-center gap-2 py-4 px-1 border-b-2 font-semibold text-sm transition-colors whitespace-nowrap
+                  ${activeMainTab === tab.id 
+                    ? 'border-emerald-500 text-emerald-400' 
+                    : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                  }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <main className="max-w-4xl mx-auto p-4 md:py-6">
+        {isLoading && !selectedMatch ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[1, 2].map(i => <div key={i} className="bg-slate-900 h-48 rounded-xl animate-pulse border border-slate-800"></div>)}
+          </div>
+        ) : (
+          <>
+            {selectedMatchId ? (
+              <MatchDetails 
+                match={selectedMatch} 
+                onBack={() => setSelectedMatchId(null)} 
+              />
+            ) : activeMainTab === 'series' ? (
+              <SeriesView series={seriesList} />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {displayedMatches.length > 0 ? (
+                  displayedMatches.map(match => (
+                    <MatchCard key={match.id} match={match} onClick={() => setSelectedMatchId(match.id)} />
+                  ))
+                ) : (
+                  <div className="col-span-full py-16 text-center text-slate-500 bg-slate-900/50 rounded-2xl border border-slate-800 border-dashed">
+                    <Swords className="w-12 h-12 mx-auto mb-4 opacity-30" />
+                    <p className="text-lg font-medium">No matches available.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+      </main>
+    </div>
+  );
+}
+
+function MatchCard({ match, onClick }) {
+  const isLive = match.type === 'live';
+  
+  return (
+    <div 
+      onClick={onClick}
+      className="bg-slate-900 border border-slate-800 rounded-xl p-5 cursor-pointer hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group flex flex-col justify-between"
+    >
+      <div className="flex justify-between items-center mb-4">
+        <span className="text-xs font-bold tracking-wider text-slate-400 uppercase truncate pr-4">
+          {match.series}
+        </span>
+      </div>
+
+      <div className="space-y-4 mb-5">
+        {[match.team1, match.team2].map((team, idx) => {
+          const stats = match[`team${idx + 1}Stats`];
+          const isBatting = match.battingTeam === `team${idx + 1}`;
+          
+          return (
+            <div key={team.name} className="flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-8 rounded-sm ${team.color} opacity-80`}></div>
+                <span className="font-bold text-lg text-slate-100">{team.name}</span>
+              </div>
+              {stats && (
+                <div className="text-right flex items-baseline gap-2">
+                  <span className={`font-black text-xl ${isBatting ? 'text-white' : 'text-slate-400'}`}>
+                    {stats.score}/{stats.wickets}
+                  </span>
+                  {stats.overs !== '0.0' && (
+                    <span className="text-xs text-slate-500 font-medium">({stats.overs})</span>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-auto pt-3 border-t border-slate-800/80">
+        <p className={`text-sm font-medium line-clamp-1 ${isLive ? 'text-emerald-400' : 'text-slate-400'}`}>
+          {match.status}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MatchDetails({ match, onBack }) {
+  const [activeTab, setActiveTab] = useState('scorecard');
+  const isLive = match.type === 'live';
+
+  return (
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <button 
+        onClick={onBack}
+        className="flex items-center text-sm font-semibold text-emerald-400 hover:text-emerald-300 mb-4 transition-colors"
+      >
+        <ChevronLeft className="w-5 h-5 mr-1" /> Dashboard
+      </button>
+
+      {/* Match Header Hero */}
+      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6 shadow-xl mb-6">
+        <div className="flex justify-between items-start mb-6">
+          <div>
+            <h2 className="text-xs font-black text-slate-400 tracking-widest uppercase">{match.series}</h2>
+            <p className="text-xs text-slate-500 mt-1 font-medium">{match.venue}</p>
+          </div>
+          {isLive && (
+            <div className="bg-red-500/10 text-red-500 text-[10px] font-black px-2 py-1 rounded uppercase tracking-widest flex items-center">
+              <span className="w-1.5 h-1.5 bg-red-500 rounded-full mr-1.5 animate-ping"></span> LIVE
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Team 1 */}
+          <div className="w-full md:w-2/5 flex flex-col md:items-start text-center md:text-left">
+            <h3 className="text-xl font-bold text-white mb-2">{match.team1.fullName}</h3>
+            {match.team1Stats && (
+              <div>
+                <span className="text-4xl font-black text-white">{match.team1Stats.score}<span className="text-2xl text-slate-500">/{match.team1Stats.wickets}</span></span>
+                <p className="text-slate-400 text-sm mt-1">Overs: <span className="text-slate-200">{match.team1Stats.overs}</span></p>
+              </div>
+            )}
+          </div>
+
+          <div className="hidden md:flex w-1/5 justify-center">
+            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xs font-black text-slate-500 border border-slate-700">VS</div>
+          </div>
+
+          {/* Team 2 */}
+          <div className="w-full md:w-2/5 flex flex-col md:items-end text-center md:text-right">
+            <h3 className="text-xl font-bold text-white mb-2">{match.team2.fullName}</h3>
+            {match.team2Stats ? (
+              <div>
+                <span className="text-4xl font-black text-white">{match.team2Stats.score}<span className="text-2xl text-slate-500">/{match.team2Stats.wickets}</span></span>
+                <p className="text-slate-400 text-sm mt-1">Overs: <span className="text-slate-200">{match.team2Stats.overs}</span></p>
+              </div>
+            ) : (
+              <p className="text-slate-600 font-medium italic">Yet to bat</p>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center text-sm">
+          <p className="text-emerald-400 font-semibold">{match.status}</p>
+          {match.runRate && (
+            <p className="text-slate-400">CRR: <span className="text-white font-bold ml-1">{match.runRate}</span></p>
+          )}
+        </div>
+      </div>
+
+      {/* Internal Tabs */}
+      <div className="flex overflow-x-auto gap-2 mb-4 bg-slate-900 p-1 rounded-lg border border-slate-800">
+        {[
+          { id: 'scorecard', icon: <BarChart3 className="w-4 h-4" />, label: 'Scorecard' },
+          { id: 'commentary', icon: <MessageSquare className="w-4 h-4" />, label: 'Commentary' },
+          { id: 'squads', icon: <Users className="w-4 h-4" />, label: 'Squads' },
+          { id: 'info', icon: <Info className="w-4 h-4" />, label: 'Match Info' }
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-sm font-semibold transition-all whitespace-nowrap
+              ${activeTab === tab.id ? 'bg-slate-800 text-emerald-400 shadow-sm' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'}`}
+          >
+            {tab.icon} {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Content Render */}
+      <div className="min-h-[400px]">
+        {activeTab === 'scorecard' && <TabScorecard match={match} />}
+        {activeTab === 'commentary' && <TabCommentary match={match} />}
+        {activeTab === 'squads' && <TabSquads match={match} />}
+        {activeTab === 'info' && (
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-slate-300">
+            <h3 className="text-lg font-bold text-white mb-4">Match Information</h3>
+            <ul className="space-y-4">
+              <li className="flex justify-between border-b border-slate-800 pb-2">
+                <span className="text-slate-500">Series</span>
+                <span className="font-medium text-right">{match.series}</span>
+              </li>
+              <li className="flex justify-between border-b border-slate-800 pb-2">
+                <span className="text-slate-500">Venue</span>
+                <span className="font-medium text-right">{match.venue}</span>
+              </li>
+              <li className="flex justify-between pb-2">
+                <span className="text-slate-500">Toss / Status</span>
+                <span className="font-medium text-right">{match.status}</span>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TabScorecard({ match }) {
+  if (!match.batsmen || match.batsmen.length === 0) {
+    return <div className="p-8 text-center text-slate-500 bg-slate-900 rounded-xl border border-slate-800">Scorecard not available yet.</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Batting */}
+      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg">
+        <div className="bg-slate-800/50 px-4 py-3 border-b border-slate-700">
+          <h3 className="font-bold text-sm tracking-wide uppercase text-slate-200">Batting</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left whitespace-nowrap">
+            <thead className="text-xs text-slate-400 bg-slate-900/80 border-b border-slate-800">
+              <tr>
+                <th className="px-4 py-3 font-semibold">Batter</th>
+                <th className="px-4 py-3 font-semibold text-right">R</th>
+                <th className="px-4 py-3 font-semibold text-right">B</th>
+                <th className="px-4 py-3 font-semibold text-right hidden sm:table-cell">4s</th>
+                <th className="px-4 py-3 font-semibold text-right hidden sm:table-cell">6s</th>
+                <th className="px-4 py-3 font-semibold text-right">SR</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/50">
+              {match.batsmen.map((b, i) => (
+                <tr key={i} className="hover:bg-slate-800/30">
+                  <td className="px-4 py-3 flex items-center font-semibold text-white">
+                    {b.name}
+                    {b.onStrike && <span className="ml-2 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>}
+                  </td>
+                  <td className="px-4 py-3 font-black text-white text-right">{b.runs}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right">{b.balls}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right hidden sm:table-cell">{b.fours}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right hidden sm:table-cell">{b.sixes}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right">{b.strikeRate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Bowling */}
+      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg">
+        <div className="bg-slate-800/50 px-4 py-3 border-b border-slate-700">
+          <h3 className="font-bold text-sm tracking-wide uppercase text-slate-200">Bowling</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left whitespace-nowrap">
+            <thead className="text-xs text-slate-400 bg-slate-900/80 border-b border-slate-800">
+              <tr>
+                <th className="px-4 py-3 font-semibold">Bowler</th>
+                <th className="px-4 py-3 font-semibold text-right">O</th>
+                <th className="px-4 py-3 font-semibold text-right hidden sm:table-cell">M</th>
+                <th className="px-4 py-3 font-semibold text-right">R</th>
+                <th className="px-4 py-3 font-semibold text-right text-emerald-400">W</th>
+                <th className="px-4 py-3 font-semibold text-right">ECO</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/50">
+              {match.bowlers.map((b, i) => (
+                <tr key={i} className="hover:bg-slate-800/30">
+                  <td className="px-4 py-3 font-semibold text-white">{b.name}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right">{b.overs}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right hidden sm:table-cell">{b.maidens}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right">{b.runs}</td>
+                  <td className="px-4 py-3 font-black text-emerald-400 text-right">{b.wickets}</td>
+                  <td className="px-4 py-3 text-slate-400 text-right">{b.economy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TabCommentary({ match }) {
+  if (!match.commentary || match.commentary.length === 0) {
+    return <div className="p-8 text-center text-slate-500 bg-slate-900 rounded-xl border border-slate-800">No commentary available.</div>;
+  }
+
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg space-y-0">
+      {match.commentary.map((comm, idx) => {
+        let evColor = "bg-slate-800 text-slate-300";
+        if(comm.event === 'W') evColor = "bg-red-500/20 text-red-500 border border-red-500/30";
+        if(comm.event === '4') evColor = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        if(comm.event === '6') evColor = "bg-indigo-500/20 text-indigo-400 border border-indigo-500/30";
+
+        return (
+          <div key={comm.id} className="flex gap-4 py-4 border-b border-slate-800/50 last:border-0 hover:bg-slate-800/10 transition-colors px-2 rounded-lg">
+            <div className="flex flex-col items-center shrink-0 w-12">
+              <span className="text-xs font-semibold text-slate-500 mb-1">Ov {comm.over}</span>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black ${evColor}`}>
+                {comm.event}
+              </div>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm text-slate-300 leading-relaxed">{comm.text}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function TabSquads({ match }) {
+  if (!match.squads) {
+    return <div className="p-8 text-center text-slate-500 bg-slate-900 rounded-xl border border-slate-800">Playing XI not announced.</div>;
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        { team: match.team1, squad: match.squads.team1 },
+        { team: match.team2, squad: match.squads.team2 }
+      ].map((data, idx) => (
+        <div key={idx} className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+          <div className={`px-4 py-3 border-b border-slate-700 bg-slate-800 flex items-center gap-2`}>
+             <Shield className="w-4 h-4 text-slate-400" />
+             <h3 className="font-bold text-white">{data.team.fullName} XI</h3>
+          </div>
+          <ul className="p-2 space-y-1">
+            {data.squad.map((player, i) => (
+              <li key={i} className="px-3 py-2 text-sm text-slate-300 hover:bg-slate-800 rounded-md transition-colors">
+                {player}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SeriesView({ series }) {
+  return (
+    <div className="space-y-4">
+      {series.map(s => (
+        <div key={s.id} className="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col md:flex-row justify-between md:items-center gap-4 hover:border-slate-700 transition-colors">
+          <div>
+            <h3 className="text-lg font-bold text-white">{s.name}</h3>
+            <p className="text-sm text-slate-400 mt-1">{s.matches} Matches Scheduled</p>
+          </div>
+          <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex w-fit
+            ${s.status === 'Ongoing' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
+            {s.status}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

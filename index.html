@@ -149,7 +149,8 @@
       padding-bottom: 6px;
     }
     .squad-box ul { list-style: none; font-size: 0.9rem; }
-    .squad-box li { padding: 4px 0; color: #e2e8f0; }
+    .squad-box li { padding: 4px 0; color: #e2e8f0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+    .squad-box li:last-child { border-bottom: none; }
 
     /* Fixtures Table */
     .table-wrap { overflow-x: auto; background: var(--card); border-radius: 12px; }
@@ -165,28 +166,14 @@
     }
     .match-link:hover { text-decoration: underline; }
   </style>
-
-  <script>
-    function tryPaths(img, list, text) {
-      let idx = parseInt(img.dataset.idx || "0", 10);
-      if (idx < list.length) {
-        img.dataset.idx = idx + 1;
-        img.src = list[idx];
-      } else {
-        img.onerror = null;
-        img.src = "https://placehold.co/120x120/1e293b/f59e0b?text=" + text;
-      }
-    }
-  </script>
 </head>
 <body>
 
   <!-- 🏆 LDPL HEADER & 🔴 CRICHEROES LIVE SCORE BUTTON -->
   <header>
-    <img src="1001356062.jpg" alt="LDPL Logo" class="ldpl-logo"
-         onerror="tryPaths(this, ['logos/1001356062.jpg','ldpl.jpg','logos/ldpl-logo.jpg'], 'LDPL')" />
+    <img src="IMG-20261001-WA0001.jpg" alt="LDPL Logo" class="ldpl-logo" />
     <h1>🏆 DEAF CRICKET PREMIER LEAGUE LATUR 2026</h1>
-    <div class="season-badge">SEASON 2 • 10 TEAMS</div>
+    <div class="season-badge">SEASON 2 • 10 TEAMS • 7 PLAYERS PER TEAM</div>
     <p>Stay updated with every match, live scorecards & stats on CricHeroes</p>
 
     <a href="https://chshare.link/tournament/gSbsn2" target="_blank" rel="noopener" class="live-btn">
@@ -196,180 +183,210 @@
 
   <nav>
     <a href="#teams">🏏 10 Teams</a>
-    <a href="#players">👤 Player List</a>
+    <a href="#players">👤 Player List (7)</a>
     <a href="#fixtures">📅 Fixtures</a>
     <a href="https://chshare.link/tournament/gSbsn2" target="_blank" rel="noopener">🔴 Live Score</a>
   </nav>
 
-  <!-- 🏏 10 LDPL TEAMS SECTION (MATCHED TO YOUR EXACT PHONE FILENAMES!) -->
+  <!-- 🏏 10 LDPL TEAMS SECTION -->
   <section class="container" id="teams">
     <h2 class="section-title">🏏 Official 10 Teams (Season 2)</h2>
     <div class="teams-grid">
       <!-- 1. AUSA -->
       <div class="team-card">
-        <img src="1001269074.png" alt="AUSA Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001269074.png','ausa.png','ausa.jpg','logos/ausa-logo.png'], 'AUSA')" />
+        <img src="Untitled%20design_20260820_075438_0000.png" alt="AUSA Logo" class="team-logo" />
         <h3>All-Star United Super Avengers (AUSA)</h3>
         <p>Captain: Prashant Chavan</p>
       </div>
       <!-- 2. CCD -->
       <div class="team-card">
-        <img src="1001359271.jpg" alt="CCD Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359271.jpg','ccd.jpg','ccd.png','logos/ccd-logo.png'], 'CCD')" />
+        <img src="IMG-20261002-WA0047.jpg" alt="CCD Logo" class="team-logo" />
         <h3>Chakur Cricket Deaf (CCD)</h3>
         <p>Captain: Abhishek Deshpande</p>
       </div>
       <!-- 3. LCY -->
       <div class="team-card">
-        <img src="1001359270.jpg" alt="LCY Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359270.jpg','lcy.jpg','lcy.png','logos/lcy-logo.png'], 'LCY')" />
+        <img src="IMG-20261002-WA0046.jpg" alt="LCY Logo" class="team-logo" />
         <h3>Latur Cricket Young (LCY)</h3>
         <p>Captain: Ajay More</p>
       </div>
       <!-- 4. LSK -->
       <div class="team-card">
-        <img src="1001359272.jpg" alt="LSK Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359272.jpg','lsk.jpg','lsk.png','logos/lsk-logo.jpg'], 'LSK')" />
+        <img src="IMG-20261002-WA0048.jpg" alt="LSK Logo" class="team-logo" />
         <h3>Latur Super Kings (LSK)</h3>
         <p>Captain: Harshad Ghumbre</p>
       </div>
       <!-- 5. DTCN -->
       <div class="team-card">
-        <img src="1001359273.jpg" alt="DTCN Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359273.jpg','dtcn.jpg','dtcn.png','logos/dtcn-logo.jpg'], 'DTCN')" />
+        <img src="IMG-20261002-WA0050.jpg" alt="DTCN Logo" class="team-logo" />
         <h3>Deaf Turf Cricket Nanded (DTCN)</h3>
         <p>Captain: Gajendra Dasarwar</p>
       </div>
       <!-- 6. LRC -->
       <div class="team-card">
-        <img src="1001359274.jpg" alt="LRC Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359274.jpg','lrc.jpg','lrc.png','logos/lrc-logo.jpg'], 'LRC')" />
+        <img src="IMG-20261002-WA0051.jpg" alt="LRC Logo" class="team-logo" />
         <h3>Latur Royal Challengers (LRC)</h3>
         <p>Captain: Pranav Bansode</p>
       </div>
       <!-- 7. UCD -->
       <div class="team-card">
-        <img src="1001359276.jpg" alt="UCD Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359276.jpg','ucd.jpg','ucd.png','logos/ucd-logo.jpg'], 'UCD')" />
+        <img src="IMG-20261002-WA0053.jpg" alt="UCD Logo" class="team-logo" />
         <h3>Udgir Cricket Deaf (UCD)</h3>
         <p>Captain: Pralhad Boinwad</p>
       </div>
       <!-- 8. TOD -->
       <div class="team-card">
-        <img src="1001359278.jpg" alt="TOD Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359278.jpg','tod.jpg','tod.png','logos/tod-logo.jpg'], 'TOD')" />
+        <img src="IMG-20261002-WA0055.jpg" alt="TOD Logo" class="team-logo" />
         <h3>The OWL Deafhood (TOD)</h3>
         <p>Captain: Sachin Solanke</p>
       </div>
       <!-- 9. DLI -->
       <div class="team-card">
-        <img src="1001359277.jpg" alt="DLI Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359277.jpg','dli.jpg','dli.png','logos/dli-logo.jpg'], 'DLI')" />
+        <img src="IMG-20261002-WA0054.jpg" alt="DLI Logo" class="team-logo" />
         <h3>Deaf Latur Indians (DLI)</h3>
         <p>Captain: Vikas Karad</p>
       </div>
       <!-- 10. DE -->
       <div class="team-card">
-        <img src="1001359275.jpg" alt="DE Logo" class="team-logo"
-             onerror="tryPaths(this, ['logos/1001359275.jpg','de.jpg','de.png','logos/de-logo.jpg'], 'DE')" />
+        <img src="IMG-20261002-WA0052.jpg" alt="DE Logo" class="team-logo" />
         <h3>Deaf Eagle (DE)</h3>
         <p>Captain: Aaqib Shaikh</p>
       </div>
     </div>
   </section>
 
-  <!-- 👤 PLAYER SQUAD LIST SECTION -->
+  <!-- 👤 PLAYER SQUAD LIST SECTION (10 TEAMS × 7 PLAYERS EACH) -->
   <section class="container" id="players">
-    <h2 class="section-title">👤 Team Squads & Player List</h2>
+    <h2 class="section-title">👤 Team Squads & Player List (7 Players Per Team)</h2>
     <div class="squad-grid">
+      <!-- 1. AUSA -->
       <div class="squad-box">
-        <h3>AUSA - All-Star United Super Avengers</h3>
+        <h3>1. AUSA - All-Star United Super Avengers</h3>
         <ul>
           <li>1. Prashant Chavan (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 2. CCD -->
       <div class="squad-box">
-        <h3>CCD - Chakur Cricket Deaf</h3>
+        <h3>2. CCD - Chakur Cricket Deaf</h3>
         <ul>
           <li>1. Abhishek Deshpande (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 3. LCY -->
       <div class="squad-box">
-        <h3>LCY - Latur Cricket Young</h3>
+        <h3>3. LCY - Latur Cricket Young</h3>
         <ul>
           <li>1. Ajay More (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 4. LSK -->
       <div class="squad-box">
-        <h3>LSK - Latur Super Kings</h3>
+        <h3>4. LSK - Latur Super Kings</h3>
         <ul>
           <li>1. Harshad Ghumbre (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 5. DTCN -->
       <div class="squad-box">
-        <h3>DTCN - Deaf Turf Cricket Nanded</h3>
+        <h3>5. DTCN - Deaf Turf Cricket Nanded</h3>
         <ul>
           <li>1. Gajendra Dasarwar (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 6. LRC -->
       <div class="squad-box">
-        <h3>LRC - Latur Royal Challengers</h3>
+        <h3>6. LRC - Latur Royal Challengers</h3>
         <ul>
           <li>1. Pranav Bansode (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 7. UCD -->
       <div class="squad-box">
-        <h3>UCD - Udgir Cricket Deaf</h3>
+        <h3>7. UCD - Udgir Cricket Deaf</h3>
         <ul>
           <li>1. Pralhad Boinwad (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 8. TOD -->
       <div class="squad-box">
-        <h3>TOD - The OWL Deafhood</h3>
+        <h3>8. TOD - The OWL Deafhood</h3>
         <ul>
           <li>1. Sachin Solanke (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 9. DLI -->
       <div class="squad-box">
-        <h3>DLI - Deaf Latur Indians</h3>
+        <h3>9. DLI - Deaf Latur Indians</h3>
         <ul>
           <li>1. Vikas Karad (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
+      <!-- 10. DE -->
       <div class="squad-box">
-        <h3>DE - Deaf Eagle</h3>
+        <h3>10. DE - Deaf Eagle</h3>
         <ul>
           <li>1. Aaqib Shaikh (Captain)</li>
           <li>2. Player 2 (Add Name)</li>
           <li>3. Player 3 (Add Name)</li>
           <li>4. Player 4 (Add Name)</li>
+          <li>5. Player 5 (Add Name)</li>
+          <li>6. Player 6 (Add Name)</li>
+          <li>7. Player 7 (Add Name)</li>
         </ul>
       </div>
     </div>
@@ -424,5 +441,7 @@
     </div>
   </section>
 
+</body>
+</html>
 </body>
 </html>

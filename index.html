@@ -24,8 +24,8 @@
       border-bottom: 3px solid var(--accent);
     }
     .ldpl-logo {
-      width: 110px;
-      height: 110px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid var(--accent);
@@ -119,8 +119,8 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
     .team-logo {
-      width: 76px;
-      height: 76px;
+      width: 86px;
+      height: 86px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--accent);
@@ -165,18 +165,30 @@
     }
     .match-link:hover { text-decoration: underline; }
   </style>
+
+  <script>
+    function tryPaths(img, list, text) {
+      let idx = parseInt(img.dataset.idx || "0", 10);
+      if (idx < list.length) {
+        img.dataset.idx = idx + 1;
+        img.src = list[idx];
+      } else {
+        img.onerror = null;
+        img.src = "https://placehold.co/120x120/1e293b/f59e0b?text=" + text;
+      }
+    }
+  </script>
 </head>
 <body>
 
   <!-- 🏆 LDPL HEADER & 🔴 CRICHEROES LIVE SCORE BUTTON -->
   <header>
-    <img src="logos/ldpl-logo.jpg" alt="LDPL Logo" class="ldpl-logo"
-         onerror="this.src='https://placehold.co/120x120/1e293b/f59e0b?text=LDPL'" />
+    <img src="1001356062.jpg" alt="LDPL Logo" class="ldpl-logo"
+         onerror="tryPaths(this, ['logos/1001356062.jpg','ldpl.jpg','logos/ldpl-logo.jpg'], 'LDPL')" />
     <h1>🏆 DEAF CRICKET PREMIER LEAGUE LATUR 2026</h1>
     <div class="season-badge">SEASON 2 • 10 TEAMS</div>
     <p>Stay updated with every match, live scorecards & stats on CricHeroes</p>
 
-    <!-- Official CricHeroes Tournament URL -->
     <a href="https://chshare.link/tournament/gSbsn2" target="_blank" rel="noopener" class="live-btn">
       <span class="dot"></span> 🔴 CricHeroes Live Score (Season 2)
     </a>
@@ -189,67 +201,77 @@
     <a href="https://chshare.link/tournament/gSbsn2" target="_blank" rel="noopener">🔴 Live Score</a>
   </nav>
 
-  <!-- 🏏 10 LDPL TEAMS SECTION -->
+  <!-- 🏏 10 LDPL TEAMS SECTION (MATCHED TO YOUR EXACT PHONE FILENAMES!) -->
   <section class="container" id="teams">
     <h2 class="section-title">🏏 Official 10 Teams (Season 2)</h2>
     <div class="teams-grid">
+      <!-- 1. AUSA -->
       <div class="team-card">
-        <img src="logos/ausa-logo.png" alt="AUSA Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=AUSA'" />
+        <img src="1001269074.png" alt="AUSA Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001269074.png','ausa.png','ausa.jpg','logos/ausa-logo.png'], 'AUSA')" />
         <h3>All-Star United Super Avengers (AUSA)</h3>
         <p>Captain: Prashant Chavan</p>
       </div>
+      <!-- 2. CCD -->
       <div class="team-card">
-        <img src="logos/ccd-logo.png" alt="CCD Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=CCD'" />
+        <img src="1001359271.jpg" alt="CCD Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359271.jpg','ccd.jpg','ccd.png','logos/ccd-logo.png'], 'CCD')" />
         <h3>Chakur Cricket Deaf (CCD)</h3>
         <p>Captain: Abhishek Deshpande</p>
       </div>
+      <!-- 3. LCY -->
       <div class="team-card">
-        <img src="logos/lcy-logo.png" alt="LCY Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=LCY'" />
+        <img src="1001359270.jpg" alt="LCY Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359270.jpg','lcy.jpg','lcy.png','logos/lcy-logo.png'], 'LCY')" />
         <h3>Latur Cricket Young (LCY)</h3>
         <p>Captain: Ajay More</p>
       </div>
+      <!-- 4. LSK -->
       <div class="team-card">
-        <img src="logos/lsk-logo.jpg" alt="LSK Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=LSK'" />
+        <img src="1001359272.jpg" alt="LSK Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359272.jpg','lsk.jpg','lsk.png','logos/lsk-logo.jpg'], 'LSK')" />
         <h3>Latur Super Kings (LSK)</h3>
         <p>Captain: Harshad Ghumbre</p>
       </div>
+      <!-- 5. DTCN -->
       <div class="team-card">
-        <img src="logos/dtcn-logo.jpg" alt="DTCN Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=DTCN'" />
+        <img src="1001359273.jpg" alt="DTCN Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359273.jpg','dtcn.jpg','dtcn.png','logos/dtcn-logo.jpg'], 'DTCN')" />
         <h3>Deaf Turf Cricket Nanded (DTCN)</h3>
         <p>Captain: Gajendra Dasarwar</p>
       </div>
+      <!-- 6. LRC -->
       <div class="team-card">
-        <img src="logos/lrc-logo.jpg" alt="LRC Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=LRC'" />
+        <img src="1001359274.jpg" alt="LRC Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359274.jpg','lrc.jpg','lrc.png','logos/lrc-logo.jpg'], 'LRC')" />
         <h3>Latur Royal Challengers (LRC)</h3>
         <p>Captain: Pranav Bansode</p>
       </div>
+      <!-- 7. UCD -->
       <div class="team-card">
-        <img src="logos/ucd-logo.jpg" alt="UCD Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=UCD'" />
+        <img src="1001359276.jpg" alt="UCD Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359276.jpg','ucd.jpg','ucd.png','logos/ucd-logo.jpg'], 'UCD')" />
         <h3>Udgir Cricket Deaf (UCD)</h3>
         <p>Captain: Pralhad Boinwad</p>
       </div>
+      <!-- 8. TOD -->
       <div class="team-card">
-        <img src="logos/tod-logo.jpg" alt="TOD Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=TOD'" />
+        <img src="1001359278.jpg" alt="TOD Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359278.jpg','tod.jpg','tod.png','logos/tod-logo.jpg'], 'TOD')" />
         <h3>The OWL Deafhood (TOD)</h3>
         <p>Captain: Sachin Solanke</p>
       </div>
+      <!-- 9. DLI -->
       <div class="team-card">
-        <img src="logos/dli-logo.jpg" alt="DLI Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=DLI'" />
+        <img src="1001359277.jpg" alt="DLI Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359277.jpg','dli.jpg','dli.png','logos/dli-logo.jpg'], 'DLI')" />
         <h3>Deaf Latur Indians (DLI)</h3>
         <p>Captain: Vikas Karad</p>
       </div>
+      <!-- 10. DE -->
       <div class="team-card">
-        <img src="logos/de-logo.jpg" alt="DE Logo" class="team-logo"
-             onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=DE'" />
+        <img src="1001359275.jpg" alt="DE Logo" class="team-logo"
+             onerror="tryPaths(this, ['logos/1001359275.jpg','de.jpg','de.png','logos/de-logo.jpg'], 'DE')" />
         <h3>Deaf Eagle (DE)</h3>
         <p>Captain: Aaqib Shaikh</p>
       </div>

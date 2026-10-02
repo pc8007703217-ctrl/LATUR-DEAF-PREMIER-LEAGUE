@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DEAF CRICKET PREMIER LEAGUE LATUR 2026 - SEASON 2 (LDPL)</title>
+  <title>DEAF CRICKET TURF LEAGUE LATUR 2026 - SEASON 2 (LDPL)</title>
   <style>
     :root {
       --bg: #0b132b;
       --card: #1c2541;
       --accent: #f59e0b;
+      --green: #10b981;
       --live: #ef4444;
       --text: #f8fafc;
       --muted: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 50px; }
+    body { background: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
 
     /* Header & LDPL Logo */
     header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       text-align: center;
-      padding: 32px 16px;
+      padding: 30px 16px;
       border-bottom: 3px solid var(--accent);
+    }
+    .foundation-tag {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      background: rgba(245, 158, 11, 0.12);
+      padding: 5px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
     }
     .ldpl-logo {
       width: 120px;
@@ -30,7 +44,8 @@
       object-fit: cover;
       border: 3px solid var(--accent);
       background: #1e293b;
-      margin-bottom: 12px;
+      display: block;
+      margin: 0 auto 12px;
     }
     header h1 { font-size: 1.75rem; letter-spacing: 1px; color: #fff; max-width: 750px; margin: 0 auto; }
     .season-badge {
@@ -38,13 +53,44 @@
       background: var(--accent);
       color: #000;
       font-weight: 800;
-      font-size: 0.85rem;
-      padding: 4px 14px;
+      font-size: 0.88rem;
+      padding: 4px 16px;
       border-radius: 999px;
       margin-top: 8px;
       letter-spacing: 0.5px;
     }
-    header p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
+    .org-by {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .slogan {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+    }
+
+    /* Info Pills in Header */
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      max-width: 820px;
+      margin: 16px auto 0;
+    }
+    .meta-pill {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 13px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
 
     /* CricHeroes Live Score Button */
     .live-btn {
@@ -79,30 +125,98 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
-      padding: 14px 16px;
+      gap: 8px;
+      padding: 12px 14px;
       background: #111827;
       position: sticky;
       top: 0;
       z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     nav a {
       color: var(--text);
       text-decoration: none;
       font-weight: 600;
-      padding: 8px 16px;
+      padding: 7px 13px;
       border-radius: 8px;
       background: var(--card);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     nav a:hover { background: var(--accent); color: #000; }
 
     .container { max-width: 1050px; margin: 0 auto; padding: 24px 16px; }
     h2.section-title {
-      font-size: 1.4rem;
-      margin-bottom: 18px;
+      font-size: 1.35rem;
+      margin-bottom: 16px;
       padding-left: 12px;
       border-left: 4px solid var(--accent);
+    }
+
+    /* Prizes Grid */
+    .prizes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .prize-card {
+      background: linear-gradient(145deg, #1c2541, #0f172a);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .prize-icon { font-size: 1.9rem; margin-bottom: 6px; }
+    .prize-title { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+    .prize-amount { font-size: 1.45rem; font-weight: 800; color: var(--accent); margin-top: 4px; }
+
+    /* Rules & Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .info-box {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .info-box h3 {
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 6px;
+    }
+    .rules-list { list-style: none; }
+    .rules-list li {
+      padding: 6px 0;
+      font-size: 0.92rem;
+      border-bottom: 1px dashed rgba(255,255,255,0.07);
+    }
+    .rules-list li:last-child { border-bottom: none; }
+    .food-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--green);
+      color: #6ee7b7;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .call-btn {
+      display: inline-block;
+      margin-top: 6px;
+      margin-right: 8px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
 
     /* 10 Teams Grid */
@@ -165,30 +279,118 @@
       font-size: 0.85rem;
     }
     .match-link:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
 
   <!-- 🏆 LDPL HEADER & 🔴 CRICHEROES LIVE SCORE BUTTON -->
   <header>
+    <div class="foundation-tag">DEAF YOUTH COMMUNITY AWARENESS FOUNDATION, LATUR 2024</div>
     <img src="IMG-20261001-WA0001.jpg" alt="LDPL Logo" class="ldpl-logo" />
-    <h1>🏆 DEAF CRICKET PREMIER LEAGUE LATUR 2026</h1>
-    <div class="season-badge">SEASON 2 • 10 TEAMS • 7 PLAYERS PER TEAM</div>
-    <p>Stay updated with every match, live scorecards & stats on CricHeroes</p>
+    <h1>🏆 DEAF CRICKET TURF LEAGUE LATUR 2026</h1>
+    <div class="season-badge">SEASON 2 • 8 PLAYERS / 10 TEAMS</div>
+    <div class="org-by">👤 ORGANIZED BY: ADINATH KAMBLE</div>
+    <div class="slogan">"DREAM BIG, PLAY BOLD, WIN GOLD"</div>
+
+    <div class="header-meta">
+      <div class="meta-pill">📅 DATE: 14 NOV 2026</div>
+      <div class="meta-pill">⏰ TIME: 08 AM TO 6 PM</div>
+      <div class="meta-pill">📍 60 ROAD, TURF TOWN, LATUR</div>
+      <div class="meta-pill">💰 ENTRY FEE: ₹450/-</div>
+      <div class="meta-pill">🍽️ FREE FOOD (Served with Love)</div>
+    </div>
 
     <a href="https://chshare.link/tournament/gSbsn2" target="_blank" rel="noopener" class="live-btn">
-      <span class="dot"></span> 🔴 CricHeroes Live Score (Season 2)
+      <span class="dot"></span> 🔴 CricHeroes — LIVE SCORING ON
     </a>
   </header>
 
   <nav>
+    <a href="#prizes">🏆 Prizes</a>
+    <a href="#rules">📋 Rules & Venue</a>
     <a href="#teams">🏏 10 Teams</a>
-    <a href="#players">👤 Player List (7)</a>
+    <a href="#players">👤 Squads (8)</a>
     <a href="#fixtures">📅 Fixtures</a>
     <a href="https://chshare.link/tournament/gSbsn2" target="_blank" rel="noopener">🔴 Live Score</a>
   </nav>
 
-  <!-- 🏏 10 LDPL TEAMS SECTION (100% FIXED & MATCHED LOGOS!) -->
+  <!-- 🏆 PRIZES SECTION -->
+  <section class="container" id="prizes">
+    <h2 class="section-title">🏆 Tournament Prizes</h2>
+    <div class="prizes-grid">
+      <div class="prize-card">
+        <div class="prize-icon">🥇</div>
+        <div class="prize-title">1st Prize</div>
+        <div class="prize-amount">₹18,001/-</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-icon">🥈</div>
+        <div class="prize-title">2nd Prize</div>
+        <div class="prize-amount">₹8,001/-</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-icon">🥉</div>
+        <div class="prize-title">3rd Prize</div>
+        <div class="prize-amount">₹5,001/-</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-icon">🏏</div>
+        <div class="prize-title">Best Batsman</div>
+        <div class="prize-amount">₹1,000/-</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-icon">🎯</div>
+        <div class="prize-title">Best Bowler</div>
+        <div class="prize-amount">₹1,000/-</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📋 RULES, VENUE & ORGANIZER CONTACT SECTION -->
+  <section class="container" id="rules">
+    <h2 class="section-title">📋 Official Rules & Venue Details</h2>
+    <div class="info-grid">
+      <div class="info-box">
+        <h3>⚖️ Tournament Rules</h3>
+        <ul class="rules-list">
+          <li>✅ <strong>8 PLAYERS / 10 TEAMS</strong></li>
+          <li>✅ <strong>EACH MATCH WILL BE 5 OVERS</strong></li>
+          <li>✅ <strong>INDIVIDUAL BOWLING LIMITS:</strong> 1, 1, 1, 1, 1 OVERS</li>
+          <li>🚫 <strong>NO EXCHANGE PLAYERS</strong> AFTER THE MATCH STARTS</li>
+          <li>🚫 <strong>NO REFUND FEES</strong> AND PLAYERS EXCHANGE ALLOWED</li>
+          <li>☝️ <strong>ORGANISATION AND UMPIRE DECISION IS FINAL</strong></li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <h3>📍 Venue, Food & Contact</h3>
+        <ul class="rules-list">
+          <li>📅 <strong>Date:</strong> 14 November 2026 (Saturday)</li>
+          <li>⏰ <strong>Time:</strong> 08:00 AM to 06:00 PM</li>
+          <li>📍 <strong>Address:</strong> 60 Road, Turf Town, Latur</li>
+          <li>💰 <strong>Entry Fee:</strong> ₹450/-</li>
+          <li>👤 <strong>Organizer:</strong> Adinath Kamble — 📞 98349 98724</li>
+          <li>📱 <strong>Prasad Malu:</strong> 9112101454</li>
+        </ul>
+        <div class="food-badge">🍽️️ FREE FOOD — Served with Love ❤️</div>
+        <div style="margin-top: 12px;">
+          <a href="tel:9834998724" class="call-btn">📞 Call Adinath Kamble</a>
+          <a href="tel:9112101454" class="call-btn">📱 Call Prasad Malu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🏏 10 LDPL TEAMS SECTION -->
   <section class="container" id="teams">
     <h2 class="section-title">🏏 Official 10 Teams (Season 2)</h2>
     <div class="teams-grid">
@@ -198,55 +400,55 @@
         <h3>All-Star United Super Avengers (AUSA)</h3>
         <p>Captain: Prashant Chavan</p>
       </div>
-      <!-- 2. CCD (Chakur Cricket) -->
+      <!-- 2. CCD -->
       <div class="team-card">
         <img src="IMG-20261002-WA0052.jpg" alt="CCD Logo" class="team-logo" />
         <h3>Chakur Cricket Deaf (CCD)</h3>
         <p>Captain: Abhishek Deshpande</p>
       </div>
-      <!-- 3. LCY (Latur Cricket Young) -->
+      <!-- 3. LCY -->
       <div class="team-card">
         <img src="IMG-20261002-WA0047.jpg" alt="LCY Logo" class="team-logo" />
         <h3>Latur Cricket Young (LCY)</h3>
         <p>Captain: Ajay More</p>
       </div>
-      <!-- 4. LSK (Latur Super Kings) -->
+      <!-- 4. LSK -->
       <div class="team-card">
         <img src="IMG-20261002-WA0046.jpg" alt="LSK Logo" class="team-logo" />
         <h3>Latur Super Kings (LSK)</h3>
         <p>Captain: Harshad Ghumbre</p>
       </div>
-      <!-- 5. DTCN (Deaf Turf Cricket Nanded) -->
+      <!-- 5. DTCN -->
       <div class="team-card">
         <img src="IMG-20261002-WA0054.jpg" alt="DTCN Logo" class="team-logo" />
         <h3>Deaf Turf Cricket Nanded (DTCN)</h3>
         <p>Captain: Gajendra Dasarwar</p>
       </div>
-      <!-- 6. LRC (Latur Royal Challengers) -->
+      <!-- 6. LRC -->
       <div class="team-card">
         <img src="IMG-20261002-WA0048.jpg" alt="LRC Logo" class="team-logo" />
         <h3>Latur Royal Challengers (LRC)</h3>
         <p>Captain: Pranav Bansode</p>
       </div>
-      <!-- 7. UCD (Udgir Cricket Deaf) -->
+      <!-- 7. UCD -->
       <div class="team-card">
         <img src="IMG-20261002-WA0055.jpg" alt="UCD Logo" class="team-logo" />
         <h3>Udgir Cricket Deaf (UCD)</h3>
         <p>Captain: Pralhad Boinwad</p>
       </div>
-      <!-- 8. TOD (The OWL Deafhood) -->
+      <!-- 8. TOD -->
       <div class="team-card">
         <img src="IMG-20261002-WA0051.jpg" alt="TOD Logo" class="team-logo" />
         <h3>The OWL Deafhood (TOD)</h3>
         <p>Captain: Sachin Solanke</p>
       </div>
-      <!-- 9. DLI (Deaf Latur Indians) -->
+      <!-- 9. DLI -->
       <div class="team-card">
         <img src="IMG-20261002-WA0053.jpg" alt="DLI Logo" class="team-logo" />
         <h3>Deaf Latur Indians (DLI)</h3>
         <p>Captain: Vikas Karad</p>
       </div>
-      <!-- 10. DE (Deaf Eagle) -->
+      <!-- 10. DE -->
       <div class="team-card">
         <img src="IMG-20261002-WA0050.jpg" alt="DE Logo" class="team-logo" />
         <h3>Deaf Eagle (DE)</h3>
@@ -255,9 +457,9 @@
     </div>
   </section>
 
-  <!-- 👤 PLAYER SQUAD LIST SECTION (10 TEAMS × 7 PLAYERS EACH) -->
+  <!-- 👤 PLAYER SQUAD LIST SECTION (10 TEAMS × 8 PLAYERS EACH) -->
   <section class="container" id="players">
-    <h2 class="section-title">👤 Team Squads & Player List (7 Players Per Team)</h2>
+    <h2 class="section-title">👤 Team Squads & Player List (8 Players Per Team)</h2>
     <div class="squad-grid">
       <!-- 1. AUSA -->
       <div class="squad-box">
@@ -270,6 +472,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 2. CCD -->
@@ -283,6 +486,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 3. LCY -->
@@ -296,6 +500,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 4. LSK -->
@@ -309,6 +514,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 5. DTCN -->
@@ -322,6 +528,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 6. LRC -->
@@ -335,6 +542,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 7. UCD -->
@@ -348,6 +556,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 8. TOD -->
@@ -361,6 +570,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 9. DLI -->
@@ -374,6 +584,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
       <!-- 10. DE -->
@@ -387,6 +598,7 @@
           <li>5. Player 5 (Add Name)</li>
           <li>6. Player 6 (Add Name)</li>
           <li>7. Player 7 (Add Name)</li>
+          <li>8. Player 8 (Add Name)</li>
         </ul>
       </div>
     </div>
@@ -394,7 +606,7 @@
 
   <!-- 📅 MATCH FIXTURES SECTION -->
   <section class="container" id="fixtures">
-    <h2 class="section-title">📅 Match Fixtures & Schedule</h2>
+    <h2 class="section-title">📅 Match Fixtures — 14 NOV 2026 (5 Overs Each)</h2>
     <div class="table-wrap">
       <table>
         <thead>
@@ -402,44 +614,6 @@
             <th>Match</th>
             <th>Teams</th>
             <th>Date & Time</th>
-            <th>Scorecard</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Match 1</td>
-            <td><strong>AUSA</strong> vs <strong>CCD</strong></td>
-            <td>TBA • 09:00 AM</td>
-            <td><a href="https://chshare.link/tournament/gSbsn2" target="_blank" class="match-link">View on CricHeroes →</a></td>
-          </tr>
-          <tr>
-            <td>Match 2</td>
-            <td><strong>LCY</strong> vs <strong>LSK</strong></td>
-            <td>TBA • 10:30 AM</td>
-            <td><a href="https://chshare.link/tournament/gSbsn2" target="_blank" class="match-link">View on CricHeroes →</a></td>
-          </tr>
-          <tr>
-            <td>Match 3</td>
-            <td><strong>DTCN</strong> vs <strong>LRC</strong></td>
-            <td>TBA • 12:00 PM</td>
-            <td><a href="https://chshare.link/tournament/gSbsn2" target="_blank" class="match-link">View on CricHeroes →</a></td>
-          </tr>
-          <tr>
-            <td>Match 4</td>
-            <td><strong>UCD</strong> vs <strong>TOD</strong></td>
-            <td>TBA • 01:30 PM</td>
-            <td><a href="https://chshare.link/tournament/gSbsn2" target="_blank" class="match-link">View on CricHeroes →</a></td>
-          </tr>
-          <tr>
-            <td>Match 5</td>
-            <td><strong>DLI</strong> vs <strong>DE</strong></td>
-            <td>TBA • 03:00 PM</td>
-            <td><a href="https://chshare.link/tournament/gSbsn2" target="_blank" class="match-link">View on CricHeroes →</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-</body>
-</html>
+            <th>Venue</th>
+            <th>Live Scorecard</th>
+          <
